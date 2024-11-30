@@ -2,33 +2,42 @@ import random
 
 
 class MPK:
+    g = None
     h = None
+    hi = None
 
-    def __init__(self, h):
+    def __init__(self, g, h, hi):
+        self.g = g
         self.h = h
+        self.hi = hi
 
 
 class MSK:
-    s = None
+    si = None
+    ti = None
 
-    def __init__(self, s):
-        self.s = s
-
-
-class CT:
-    ct0 = None
-    cti = None
-
-    def __init__(self, ct0, cti):
-        self.ct0 = ct0
-        self.cti = cti
+    def __init__(self, si, ti):
+        self.si = si
+        self.ti = ti
 
 
-class SKy:
-    key = None
+class Cy:
+    C = None
+    D = None
+    Ei = None
 
-    def __init__(self, key):
-        self.key = key
+    def __init__(self, C, D, Ei):
+        self.C = C
+        self.D = D
+        self.Ei = Ei
+
+class SKx:
+    sx = None
+    tx = None
+
+    def __init__(self, sx, tx):
+        self.sx = sx
+        self.tx = tx
 
 
 def inner_product_mod(vector1, vector2, p):
