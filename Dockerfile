@@ -9,5 +9,7 @@ RUN cd /charm && ./configure.sh && make && make install && ldconfig
 
 FROM base AS final
 COPY ./ipfehelpers.py .
-COPY ./ipfe-fullysec.py .
-CMD ["python3", "ipfe-fullysec.py"]
+COPY ./ipfefullysec.py .
+COPY ./benchmark.py .
+#CMD ["python3", "ipfe-fullysec.py"]
+CMD ["python3", "benchmark.py"]
