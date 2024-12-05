@@ -2,31 +2,31 @@ import time
 import csv
 from ipfefullysec import IPFEFULLYSEC
 
-l = 5
 
-stages = [512, 1024]
+#
+# def test():
+#     G = IPFEFULLYSEC(512)
+#     mpk, msk = G.setup(l)
+#     x = G.random_vector(l, G.p)
+#     skx = G.keygen(msk, x, l)
+#     y = G.random_vector(l, G.p)
+#     cy = G.encrypt(mpk, y, l)
+#     res = G.decrypt(mpk, skx, cy, x, l)
+#     # This is computationally expensive
+#     # val = find_dlog(g, res)
 
-def test():
-    G = IPFEFULLYSEC(512)
-    mpk, msk = G.setup(l)
-    x = G.random_vector(l, G.p)
-    skx = G.keygen(msk, x, l)
-    y = G.random_vector(l, G.p)
-    cy = G.encrypt(mpk, y, l)
-    res = G.decrypt(mpk, skx, cy, x, l)
-    # This is computationally expensive
-    # val = find_dlog(g, res)
-
-    expected = sum([x[i] * y[i] for i in range(l)])
-    print("<x,y> ", expected)
-    print("g^<x,y>: ", G.g**expected)
-    # print("Dlog result: ", val)
-    print("Decrypted result: ", res)
+#     expected = sum([x[i] * y[i] for i in range(l)])
+#     print("<x,y> ", expected)
+#     print("g^<x,y>: ", G.g**expected)
+#     # print("Dlog result: ", val)
+#     print("Decrypted result: ", res)
 
 
 ## Tests 
 def simulate_increasing_bits():
     results = []
+    l = 100
+    stages = [512, 1024, 1536, 2048]
     for bits in stages:
         G = IPFEFULLYSEC(bits)
 
@@ -65,10 +65,10 @@ def simulate_increasing_bits():
         csvwriter.writerows(results)
 
 
-def simulate_increasing_l():
+def simulate_increasing_length():
     results = []
     bits = 512
-    length = [100, 1000, 10000]
+    length = [100, 500, 1000, 5000, 10000]
     G = IPFEFULLYSEC(bits)
     
     for l in length:
@@ -107,4 +107,5 @@ def simulate_increasing_l():
         csvwriter.writerows(results)
 
 
-simulate_increasing_l()
+simulate_increasing_bits()
+simulate_increasing_length()
