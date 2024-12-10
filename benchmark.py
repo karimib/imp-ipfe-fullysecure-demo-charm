@@ -26,7 +26,7 @@ from ipfefullysec import IPFEFULLYSEC
 def simulate_increasing_bits():
     results = []
     l = 100
-    stages = [512, 1024, 1536, 2048]
+    stages = [512, 1024, 1536, 2048, 2560, 3072, 3584, 4096]
     for bits in stages:
         G = IPFEFULLYSEC(bits)
 
@@ -68,7 +68,7 @@ def simulate_increasing_bits():
 def simulate_increasing_length():
     results = []
     bits = 512
-    length = [100, 500, 1000, 5000, 10000]
+    length = [100,200,300,400, 500,750, 1000,1250,1500,1750,2000,3000,4000, 5000,7500, 10000,12500,15000,20000,25000,30000,40000,50000,75000, 100000]
     G = IPFEFULLYSEC(bits)
     
     for l in length:
