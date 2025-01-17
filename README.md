@@ -37,7 +37,30 @@ Create a container from the image
 docker run ipfefsdemo:v1 
 ```
 
-Mount a volume to save benchmark csv
+Mount a volume to save benchmark csv (if)
+
+````shell
+docker run -v "${PWD}/results:/data" ipfefsdemo:v1 
+````
+
+## Benchmarking
+
+The [benchmark.py](./benchmark.py) file contains two methods for benchmarking
+
+| Method | Description |
+| --- | --- |
+| simulate_increasing_bits() | Compare the timings when increasing the security parameter (in bits) that instantiates the cyclic group G of prime order |
+| simulate_increasing_length() | Compare the timings when increasing the length of the input vectors x and y|
+
+to run them you have to uncomment line 161 and line 162 and build a new image as follows:
+
+Build the image
+
+```shell
+docker build -t ipfefsdemo:v1 .
+```
+
+Then mount a volume to save the benchmark csv to your disk: 
 
 ````shell
 docker run -v "${PWD}/results:/data" ipfefsdemo:v1 
