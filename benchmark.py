@@ -3,26 +3,22 @@ import csv
 from ipfefullysec import IPFEFULLYSEC
 
 
-#
-# def test():
-#     G = IPFEFULLYSEC(512)
-#     mpk, msk = G.setup(l)
-#     x = G.random_vector(l, G.p)
-#     skx = G.keygen(msk, x, l)
-#     y = G.random_vector(l, G.p)
-#     cy = G.encrypt(mpk, y, l)
-#     res = G.decrypt(mpk, skx, cy, x, l)
-#     # This is computationally expensive
-#     # val = find_dlog(g, res)
+def implementation_check():
+    G = IPFEFULLYSEC(512)
+    l = 3
+    mpk, msk = G.setup(l)
+    x = G.random_vector(l, G.p)
+    skx = G.keygen(msk, x, l)
+    y = G.random_vector(l, G.p)
+    cy = G.encrypt(mpk, y, l)
+    v = G.decrypt(mpk, skx, cy, x, l)
 
-#     expected = sum([x[i] * y[i] for i in range(l)])
-#     print("<x,y> ", expected)
-#     print("g^<x,y>: ", G.g**expected)
-#     # print("Dlog result: ", val)
-#     print("Decrypted result: ", res)
+    expected = G.get_expected_result(x, y, l)
+    print("Expected: ", expected)
+    print("Calculated: ", v)
 
 
-## Tests 
+## Tests
 def simulate_increasing_bits():
     results = []
     l = 100
@@ -57,20 +53,60 @@ def simulate_increasing_bits():
 
         print("bits: ", bits)
 
-        results.append([bits, l, setup_time, encrypt_time, keygen_time, decrypt_time, total_time])
+        results.append(
+            [bits, l, setup_time, encrypt_time, keygen_time, decrypt_time, total_time]
+        )
 
-    with open('data/ipfe-fullysec_timings_increasing_bits.csv', 'w', newline='') as csvfile:
+    with open(
+        "data/ipfe-fullysec_timings_increasing_bits.csv", "w", newline=""
+    ) as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['bits', 'l', 'time setup', 'time encrypt', 'time keygen', 'time decrypt', 'time total'])
+        csvwriter.writerow(
+            [
+                "bits",
+                "l",
+                "time setup",
+                "time encrypt",
+                "time keygen",
+                "time decrypt",
+                "time total",
+            ]
+        )
         csvwriter.writerows(results)
 
 
 def simulate_increasing_length():
     results = []
     bits = 512
-    length = [100,200,300,400, 500,750, 1000,1250,1500,1750,2000,3000,4000, 5000,7500, 10000,12500,15000,20000,25000,30000,40000,50000,75000, 100000]
+    length = [
+        100,
+        200,
+        300,
+        400,
+        500,
+        750,
+        1000,
+        1250,
+        1500,
+        1750,
+        2000,
+        3000,
+        4000,
+        5000,
+        7500,
+        10000,
+        12500,
+        15000,
+        20000,
+        25000,
+        30000,
+        40000,
+        50000,
+        75000,
+        100000,
+    ]
     G = IPFEFULLYSEC(bits)
-    
+
     for l in length:
         x = G.random_vector(l, G.p)
         y = G.random_vector(l, G.p)
@@ -99,13 +135,28 @@ def simulate_increasing_length():
 
         print("bits: ", bits)
 
-        results.append([bits, l, setup_time, encrypt_time, keygen_time, decrypt_time, total_time])
+        results.append(
+            [bits, l, setup_time, encrypt_time, keygen_time, decrypt_time, total_time]
+        )
 
-    with open('data/ipfe-fullysec_timings_increasing_l.csv', 'w', newline='') as csvfile:
+    with open(
+        "data/ipfe-fullysec_timings_increasing_l.csv", "w", newline=""
+    ) as csvfile:
         csvwriter = csv.writer(csvfile)
-        csvwriter.writerow(['bits', 'l', 'time setup', 'time encrypt', 'time keygen', 'time decrypt', 'time total'])
+        csvwriter.writerow(
+            [
+                "bits",
+                "l",
+                "time setup",
+                "time encrypt",
+                "time keygen",
+                "time decrypt",
+                "time total",
+            ]
+        )
         csvwriter.writerows(results)
 
 
-simulate_increasing_bits()
-simulate_increasing_length()
+implementation_check()
+# simulate_increasing_bits()
+# simulate_increasing_length()
